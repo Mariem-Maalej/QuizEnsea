@@ -1,5 +1,6 @@
 package com.example.project7;
 
+import com.example.project7.service.PdfTextExtractor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        PdfTextExtractor pdfExtractor = new PdfTextExtractor();
+        pdfExtractor.extractText();
         createDatabaseIfDoesNotExist();
         Parent root = FXMLLoader.load(getClass().getResource("Boarder.fxml"));
         window = primaryStage;

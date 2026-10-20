@@ -76,11 +76,7 @@
         </dependency>
 
         <!-- Pour traiter les PDF -->
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>2.0.30</version>
-        </dependency>
+
 
         <!-- Pour les images -->
 
@@ -88,6 +84,12 @@
             <groupId>com.github.jai-imageio</groupId>
             <artifactId>jai-imageio-core</artifactId>
             <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.37</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
