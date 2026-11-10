@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.project7.controller.importation.ImportExamController"
+            style="-fx-background-color: #f5f5f5;">
+
+    <children>
+        <BorderPane AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+
+            <top>
+                <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20 25 10 25;">
+                    <Label text="📥 Import Exam from PDF"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #c2185b;"/>
+                    <Label text="Choose an exam PDF and where to save the project. The exercises and questions are created automatically."
+                           wrapText="true"
+                           style="-fx-font-size: 13px; -fx-text-fill: #757575;"/>
+                    <Separator/>
+                </VBox>
+            </top>
+
+            <center>
+                <HBox spacing="0" style="-fx-background-color: #f5f5f5;">
+
+                    <!-- Left: form -->
+                    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15 20 20 20; -fx-min-width: 320; -fx-max-width: 320;">
+
+                        <Label text="1. Exam PDF"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #5E35B1;"/>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <TextField fx:id="txtPdf" editable="false" promptText="No file selected"
+                                       HBox.hgrow="ALWAYS" style="-fx-padding: 7;"/>
+                            <JFXButton fx:id="btnChoosePdf" text="Browse…" onAction="#handleChoosePdf"
+                                       style="-fx-background-color: #5E35B1; -fx-text-fill: white; -fx-padding: 7 12;"/>
+                        </HBox>
+
+                        <Label text="2. Project name"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #5E35B1; -fx-padding: 8 0 0 0;"/>
+                        <TextField fx:id="txtProjectName" promptText="Ex: Microcontroleur_Examen_2025"
+                                   onKeyReleased="#handleProjectNameChanged" style="-fx-padding: 7;"/>
+                        <Label fx:id="lblNameError" minHeight="-Infinity" text="" wrapText="true"
+                               style="-fx-font-size: 11px; -fx-text-fill: #d32f2f;"/>
+
+                        <Label text="3. Save location"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #5E35B1;"/>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <TextField fx:id="txtFolder" editable="false" promptText="No folder selected"
+                                       HBox.hgrow="ALWAYS" style="-fx-padding: 7;"/>
+                            <JFXButton fx:id="btnChooseFolder" text="Browse…" onAction="#handleChooseFolder"
+                                       style="-fx-background-color: #5E35B1; -fx-text-fill: white; -fx-padding: 7 12;"/>
+                        </HBox>
+
+                        <Region VBox.vgrow="ALWAYS"/>
+
+                        <Label text="ℹ The PDF has no correction: every answer is imported as incorrect. After the import, open each QCM / QCU in the editor and move the right answers to the correct list."
+                               wrapText="true"
+                               style="-fx-font-size: 11px; -fx-text-fill: #6d4c41; -fx-background-color: #fff8e1; -fx-padding: 10; -fx-background-radius: 4;"/>
+                    </VBox>
+
+                    <Separator orientation="VERTICAL"/>
+
+                    <!-- Right: preview -->
+                    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15 20 20 20;" HBox.hgrow="ALWAYS">
+                        <Label text="🔎 Preview"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1976D2;"/>
+                        <Label fx:id="lblExamTitle" minHeight="-Infinity" text="Choose a PDF to see what will be imported."
+                               wrapText="true"
+                               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #424242;"/>
+                        <Label fx:id="lblSummary" minHeight="-Infinity" text="" wrapText="true"
+                               style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
+                        <TreeView fx:id="treePreview" showRoot="false" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </HBox>
+            </center>
+
+            <bottom>
+                <HBox alignment="CENTER_RIGHT" spacing="15"
+                      style="-fx-background-color: white; -fx-padding: 12 20; -fx-border-color: #E0E0E0; -fx-border-width: 1 0 0 0;">
+                    <ProgressIndicator fx:id="progress" visible="false" managed="false"
+                                       prefWidth="24" prefHeight="24"/>
+                    <Label fx:id="lblStatus" text="" wrapText="true"
+                           style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <JFXButton fx:id="btnImport" text="📥 Import Exam" onAction="#handleImport"
+                               disable="true"
+                               style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 25; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>
