@@ -96,7 +96,7 @@
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/import.png" />
+                                          <Image url="@images/export.png" />
                                        </image>
                                     </ImageView>
                                     <JFXButton onAction="#handleClicksExtract" prefHeight="44.0" prefWidth="120.0" text="Extract" textFill="WHITE">
@@ -106,7 +106,20 @@
                                     </JFXButton>
                                  </children>
                               </HBox>
-
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/import.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXButton onAction="#handleClicksImport" prefHeight="44.0" prefWidth="120.0" text="Import" textFill="WHITE">
+                                       <font>
+                                          <Font name="Century Gothic" size="22.0" />
+                                       </font>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">

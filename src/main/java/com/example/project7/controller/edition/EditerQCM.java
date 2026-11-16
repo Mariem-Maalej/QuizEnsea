@@ -267,6 +267,16 @@ public class EditerQCM implements Initializable {
         });
 
         correctTableView.setItems(FXCollections.observableArrayList());
+
+        // Drag and drop between the correct and incorrect tables
+        AnswerDragAndDrop.makeRowsDraggable(correctTableView);
+        AnswerDragAndDrop.makeRowsDraggable(incorrectTableView);
+        AnswerDragAndDrop.acceptAnswersFromOtherTable(correctTableView,
+                () -> AnswerDragAndDrop.parseScore(baremePosDefault, 1),
+                "Drag correct answers here from the incorrect table");
+        AnswerDragAndDrop.acceptAnswersFromOtherTable(incorrectTableView,
+                () -> AnswerDragAndDrop.parseScore(baremeNegDefault, 0),
+                "No incorrect answers");
         enonceQuestion.setWrapText(true);
         comboExercice.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -1245,7 +1255,6 @@ public class EditerQCM implements Initializable {
         stmt.executeBatch();
     }
 
-// ============ FIN DES NOUVELLES MÉTHODES ============
 
 
 }

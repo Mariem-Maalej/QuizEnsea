@@ -25,8 +25,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        PdfTextExtractor pdfExtractor = new PdfTextExtractor();
-        pdfExtractor.extractText();
         createDatabaseIfDoesNotExist();
         Parent root = FXMLLoader.load(getClass().getResource("Boarder.fxml"));
         window = primaryStage;

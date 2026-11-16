@@ -1144,13 +1144,37 @@ public class EditerProjet implements Initializable {
 
     private String generateHeader() {
         StringBuilder header = new StringBuilder();
-        header.append("\\documentclass[a4paper]{article}\n");
-        header.append("\\usepackage[utf8x]{inputenc}\n");
+        header.append("\\documentclass[a4paper,11pt]{article}\n");
+        header.append("\\usepackage[utf8]{inputenc}\n");
         header.append("\\usepackage[T1]{fontenc}\n");
+        header.append("\\usepackage{lmodern}\n");
+        header.append("\\usepackage[french]{babel}\n");
+        // Page margins (AMC's corner marks stay outside the text area)
+        header.append("\\usepackage[a4paper,hmargin=2.2cm,top=2.5cm,bottom=2.5cm]{geometry}\n");
+        header.append("\\usepackage{setspace}\n");
+        header.append("\\usepackage{multicol}\n");
+        header.append("\\usepackage{needspace}\n");
         header.append("\\usepackage{graphics}\n");
         header.append("\\usepackage{listings}\n");
         header.append("\\usepackage{float}\n");
         header.append("\\usepackage[francais,bloc,completemulti,ensemble]{automultiplechoice}\n");
+        // Characters that utf8 does not know by default
+        header.append("\\DeclareUnicodeCharacter{2264}{\\ensuremath{\\leq}}\n");
+        header.append("\\DeclareUnicodeCharacter{2265}{\\ensuremath{\\geq}}\n");
+        header.append("\\DeclareUnicodeCharacter{2260}{\\ensuremath{\\neq}}\n");
+        header.append("\\DeclareUnicodeCharacter{2192}{\\ensuremath{\\rightarrow}}\n");
+        header.append("\\DeclareUnicodeCharacter{2190}{\\ensuremath{\\leftarrow}}\n");
+        header.append("\\DeclareUnicodeCharacter{2194}{\\ensuremath{\\leftrightarrow}}\n");
+        header.append("\\DeclareUnicodeCharacter{03A9}{\\ensuremath{\\Omega}}\n");
+        header.append("\\DeclareUnicodeCharacter{03BC}{\\ensuremath{\\mu}}\n");
+        header.append("\\DeclareUnicodeCharacter{2663}{\\ensuremath{\\clubsuit}}\n");
+        // Layout: line spacing, justification, space between answers / questions
+        header.append("\\setstretch{1.2}\n");
+        header.append("\\setlength{\\parindent}{0pt}\n");
+        header.append("\\setlength{\\emergencystretch}{3em}\n");   // fewer lines running into the margin
+        header.append("\\AMCinterIrep=0.6ex\n");
+        header.append("\\AMCinterBquest=3.5ex\n");
+        header.append("\\setlength{\\columnsep}{1.5em}\n");
         header.append("\\begin{document}\n");
         header.append("\t\\AMCrandomseed{" + randomSeed.getText().trim() + "}\n");
         header.append("\t\\def\\AMCformQuestion#1{{\\sc Question #1 :}}\n");
@@ -1167,16 +1191,16 @@ public class EditerProjet implements Initializable {
         footer.append("\t\t\\noindent{\\large\\bf QUESTIONS  \\hfill ").append(formatLatex(typeDevoir.getText())).append(" of ").append(dateDevoir.getValue().format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"))).append("}\n");
         footer.append("\t\t\n");
         footer.append("\t\t\\vspace*{.5cm}\n");
-        footer.append("\t\t\\begin{minipage}{.4\\linewidth}\n");
-        footer.append("\t\t\t\\centering\\large\\bf ").append(formatLatex(nomDevoir.getText().trim())).append(" \n");
-        footer.append("\t\t\\end{minipage}\n");
-        footer.append("\t\t\n");
-        footer.append("\t\t\\begin{center}\\em\n");
-        footer.append("\t\t\t\n");
-        footer.append("\t\t\t").append(formatLatex(examHeader.getText())).append("\n");
-        footer.append("\t\t\t\n");
+        // Title centred on the whole page width
+        footer.append("\t\t\\begin{center}\n");
+        footer.append("\t\t\t\\Large\\bf ").append(formatLatex(nomDevoir.getText().trim())).append(" \n");
         footer.append("\t\t\\end{center}\n");
-        footer.append("\t\t\\vspace{1ex}\n");
+        footer.append("\t\t\n");
+        // Instructions: justified, in a light frame
+        footer.append("\t\t\\noindent\\fbox{\\begin{minipage}{\\dimexpr\\linewidth-2\\fboxsep-2\\fboxrule}\n");
+        footer.append("\t\t\t\\small\\em ").append(formatLatex(examHeader.getText())).append("\n");
+        footer.append("\t\t\\end{minipage}}\n");
+        footer.append("\t\t\\vspace{3ex}\n");
         footer.append("\t\t\n");
         footer.append("\t\t\n");
         footer.append("\t\t\\restituegroupe{general}\n");
@@ -1269,6 +1293,18 @@ public class EditerProjet implements Initializable {
                 }
             }
 
+            // Choose how to lay out the answers from their length
+            int longestAnswer = 0;
+            for (ResponseLatex r : responseLatexList) {
+                longestAnswer = Math.max(longestAnswer, r.reponse == null ? 0 : r.reponse.length());
+            }
+            // QCM (several answers) get an extra "Aucune de ces réponses n'est correcte." from completemulti
+            boolean horizontal = isQCU && longestAnswer <= SHORT_ANSWER_MAX_LENGTH
+                    && responseLatexList.size() <= 12;
+            boolean twoColumns = !horizontal && longestAnswer <= COLUMN_ANSWER_MAX_LENGTH
+                    && responseLatexList.size() >= 4;
+            String answersEnvironment = horizontal ? "reponseshoriz" : "reponses";
+
             texcontentBuilder.append("\n\\begin{question}{")
                     .append(removeLatexSpecialCharacters(idSectionLatex))
                     .append("}\\bareme{b=").append(maxCorrect)
@@ -1277,7 +1313,10 @@ public class EditerProjet implements Initializable {
                 texcontentBuilder.append("\\hspace{-1em}\\multiSymbole{} ");
             }
             texcontentBuilder.append(formatLatex(question)).append("\n");
-            texcontentBuilder.append("\\begin{reponseshoriz}\n");
+            if (twoColumns) {
+                texcontentBuilder.append("\\begin{multicols}{2}\n");
+            }
+            texcontentBuilder.append("\\begin{").append(answersEnvironment).append("}\n");
 
             for (ResponseLatex r : responseLatexList) {
                 if (r.isCorrect) {
@@ -1295,7 +1334,10 @@ public class EditerProjet implements Initializable {
                 }
             }
 
-            texcontentBuilder.append("\\end{reponseshoriz}\n");
+            texcontentBuilder.append("\\end{").append(answersEnvironment).append("}\n");
+            if (twoColumns) {
+                texcontentBuilder.append("\\end{multicols}\n");
+            }
             texcontentBuilder.append("\\end{question}\n");
         }
     }
@@ -1584,12 +1626,19 @@ public class EditerProjet implements Initializable {
         }
     }
 
+    /** Answers up to this many characters are put side by side (e.g. "VRAI", "0x01", "87 us"). */
+    private static final int SHORT_ANSWER_MAX_LENGTH = 14;
+    /** Answers up to this many characters are put in two columns; longer ones get one line each. */
+    private static final int COLUMN_ANSWER_MAX_LENGTH = 32;
+
     private String formatLatex(String text) {
         if (text == null) {
             return "";
         }
+        // Backslashes go through a placeholder, so the "{}" added below is not escaped again
+        String backslash = "\u0000BACKSLASH\u0000";
         return text
-                .replace("\\ ", "\\textbackslash{}")
+                .replace("\\", backslash)
                 .replace("&", "\\&")
                 .replace("%", "\\%")
                 .replace("$", "\\$")
@@ -1613,11 +1662,16 @@ public class EditerProjet implements Initializable {
                 .replace("•", "\\textbullet{}")
                 .replace("«", "\\guillemotleft{}")
                 .replace("»", "\\guillemotright{}")
-                .replace("'", "`")
-                .replace("'", "'")
-                .replace("'", "``")
-                .replace("'", "''")
-                .replace(":¨:", "\\multiSymbole{}");
+                .replace("\"", "\\textquotedbl{}")   // straight " (code), not a closing quote
+                .replace("\u2018", "`")      // ‘
+                .replace("\u2019", "'")      // ’
+                .replace("\u201C", "``")     // “
+                .replace("\u201D", "''")     // ”
+                .replace(":¨:", "\\multiSymbole{}")
+                // Let long code (HAL_I2C_Master_Transmit(&hi2c1,...)) break after "_" and ","
+                .replace("\\_", "\\_\\allowbreak{}")
+                .replace(",", ",\\allowbreak{}")
+                .replace(backslash, "\\textbackslash{}");
     }
 
     private String removeLatexSpecialCharacters(String input) {
@@ -1667,14 +1721,18 @@ public class EditerProjet implements Initializable {
                         currentExerciceNumero = row.getExerciceNumero();
 
                         texcontentBuilder.append("\n\\element{general}{\n");
-                        texcontentBuilder.append("\\noindent{\\LARGE\\textbf{Exercice ")
+                        // If less than ~10 lines are left on the page, start the exercise on the next page,
+                        // so the title is never left alone at the bottom.
+                        texcontentBuilder.append("\\par\\Needspace{10\\baselineskip}\\vspace{2ex}\n");
+                        // Title in an unbreakable box: never split over two pages, no hyphenation
+                        texcontentBuilder.append("\\noindent\\parbox{\\linewidth}{\\raggedright\\Large\\bfseries Exercice ")
                                 .append(currentExerciceNumero);
                         if (row.getExerciceTitre() != null && !row.getExerciceTitre().trim().isEmpty()) {
                             texcontentBuilder.append(" : ")
                                     .append(formatLatex(row.getExerciceTitre()));
                         }
-                        texcontentBuilder.append("}}\n\n");
-                        texcontentBuilder.append("\\vspace{0.5cm}\n\n");
+                        texcontentBuilder.append("}\\par\\nopagebreak\n\n");
+                        texcontentBuilder.append("\\vspace{1.5ex}\n\n");
 
                         exerciceOpen = true;
                     }
@@ -1725,9 +1783,10 @@ public class EditerProjet implements Initializable {
     }
 
     private void saveToFile(String content) {
-        File directory = new File(this.projet.getLocalisationProjet() + "\\" + this.projet.getNomProjet());
-        if (!directory.exists()) {
-            directory.mkdir();
+        File directory = new File(this.projet.getLocalisationProjet(), this.projet.getNomProjet());
+        if (!directory.isDirectory() && !directory.mkdirs()) {
+            showAlert("Error", "Could not create the folder:\n" + directory.getAbsolutePath());
+            return;
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(directory, verifyNomDevoir() + ".tex")))) {
             writer.write(content);
@@ -1750,39 +1809,90 @@ public class EditerProjet implements Initializable {
     private void generatePDF() {
         File directory = new File(this.projet.getLocalisationProjet() + File.separator + this.projet.getNomProjet());
         File texFile = new File(directory, verifyNomDevoir() + ".tex");
+        File pdfFile = new File(directory, verifyNomDevoir() + ".pdf");
 
-        ProcessBuilder processBuilder = new ProcessBuilder("pdflatex", texFile.getName());
-        processBuilder.directory(directory);
-        processBuilder.redirectErrorStream(true);
+        // pdflatex is run twice: LaTeX/AMC need a second pass for references and layout.
+        for (int pass = 1; pass <= 2; pass++) {
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    findPdflatex(), "-interaction=nonstopmode", "-halt-on-error", texFile.getName());
+            processBuilder.directory(directory);
+            processBuilder.redirectErrorStream(true);
+
+            List<String> errors = new ArrayList<>();
+            int exitCode;
+            try {
+                Process process = processBuilder.start();
+                process.getOutputStream().close();   // never wait for keyboard input
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                        if (line.startsWith("!") || (!errors.isEmpty() && errors.size() < 6)) {
+                            errors.add(line);          // the "! ..." line and a few lines after it
+                        }
+                    }
+                }
+                exitCode = process.waitFor();
+            } catch (IOException e) {
+                e.printStackTrace();
+                if (!directory.isDirectory()) {
+                    showAlert("Folder not found",
+                            "The project folder does not exist:\n" + directory.getAbsolutePath());
+                } else {
+                    showAlert("LaTeX not found",
+                            "\"pdflatex\" could not be started.\n\n"
+                                    + "Install MiKTeX (https://miktex.org) or TeX Live, then restart the application.");
+                }
+                return;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+
+            if (exitCode != 0) {
+                showAlert("PDF generation failed",
+                        "LaTeX stopped with an error:\n\n" + String.join("\n", errors)
+                                + "\n\nFull log: " + new File(directory, verifyNomDevoir() + ".log").getAbsolutePath());
+                return;
+            }
+        }
 
         try {
-            Process process = processBuilder.start();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
-                }
+            if (pdfFile.exists() && Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(pdfFile);
             }
-            int exitCode = process.waitFor();
-            if (exitCode == 0) {
-                System.out.println("PDF generated successfully.");
-                File pdfFile = new File(directory, verifyNomDevoir() + ".pdf");
-                if (Desktop.isDesktopSupported()) {
-                    Desktop desktop = Desktop.getDesktop();
-                    if (pdfFile.exists()) {
-                        desktop.open(pdfFile);
-                    } else {
-                        System.err.println("PDF file not found: " + pdfFile.getAbsolutePath());
-                    }
-                } else {
-                    System.err.println("Desktop is not supported on this platform.");
-                }
-            } else {
-                System.err.println("PDF generation failed with exit code: " + exitCode);
-            }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            showAlert("PDF generated", "The PDF was created but could not be opened:\n" + pdfFile.getAbsolutePath());
         }
+    }
+
+    /** pdflatex from the PATH, or from the usual MiKTeX / TeX Live install folders on Windows. */
+    private String findPdflatex() {
+        List<File> candidates = new ArrayList<>();
+        String localAppData = System.getenv("LOCALAPPDATA");
+        String programFiles = System.getenv("ProgramFiles");
+        if (localAppData != null) {
+            candidates.add(new File(localAppData, "Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe"));
+        }
+        if (programFiles != null) {
+            candidates.add(new File(programFiles, "MiKTeX\\miktex\\bin\\x64\\pdflatex.exe"));
+        }
+        File texLive = new File("C:\\texlive");
+        File[] years = texLive.listFiles(File::isDirectory);
+        if (years != null) {
+            for (File year : years) {
+                candidates.add(new File(year, "bin\\windows\\pdflatex.exe"));
+                candidates.add(new File(year, "bin\\win64\\pdflatex.exe"));
+                candidates.add(new File(year, "bin\\win32\\pdflatex.exe"));
+            }
+        }
+        for (File candidate : candidates) {
+            if (candidate.isFile()) {
+                return candidate.getAbsolutePath();
+            }
+        }
+        return "pdflatex";   // fall back to the PATH
     }
 
 

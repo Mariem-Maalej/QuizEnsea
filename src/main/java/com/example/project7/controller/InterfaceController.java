@@ -5,6 +5,7 @@ import com.example.project7.controller.edition.ExtractViewController;
 import com.example.project7.controller.edition.OpenProjet;
 import com.example.project7.controller.edition.SelectionTypeProjet;
 import com.example.project7.controller.edition.ThemeView;
+import com.example.project7.controller.importation.ImportExamController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,7 +72,20 @@ public class InterfaceController implements Initializable {
         anchorpane3.getChildren().removeAll();
         anchorpane3.getChildren().setAll(view);
     }
-
+    @FXML
+    private void handleClicksImport(ActionEvent event) {
+        FxmlLoader loader = new FxmlLoader();
+        Parent view = loader.getPane("importation/ImportExamView");
+        ImportExamController controller = (ImportExamController) loader.getController();
+        if (controller != null) {
+            controller.setParentPane(anchorpane3);
+        }
+        anchorpane3.getChildren().setAll(view);
+        AnchorPane.setTopAnchor(view, 0.0);
+        AnchorPane.setBottomAnchor(view, 0.0);
+        AnchorPane.setLeftAnchor(view, 0.0);
+        AnchorPane.setRightAnchor(view, 0.0);
+    }
 
     @FXML
     void handleClicksOpen(ActionEvent event) {

@@ -553,6 +553,11 @@ public class EditerQCU implements Initializable {
 
         incorrectTableView.setItems(FXCollections.observableArrayList());
 
+        // Drag an answer from the table onto the correct-answer field
+        AnswerDragAndDrop.makeRowsDraggable(incorrectTableView);
+        AnswerDragAndDrop.acceptAnswerAsCorrect(reponseCorrect, baremePos, incorrectTableView,
+                () -> AnswerDragAndDrop.parseScore(baremeNegDefault, 0));
+
         enonceQuestion.setWrapText(true);
         reponseCorrect.setWrapText(true);
     }

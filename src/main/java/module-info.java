@@ -15,6 +15,7 @@ module com.example.project7 {
     opens com.example.project7.controller.correction to javafx.fxml;
     opens com.example.project7.model to javafx.fxml;
     opens sql_connection to javafx.fxml;
+    opens com.example.project7.controller.importation to javafx.fxml;
 
     exports com.example.project7;
     exports com.example.project7.model;
