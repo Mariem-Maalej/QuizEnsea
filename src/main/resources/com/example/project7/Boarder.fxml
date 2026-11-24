@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="all" prefHeight="604.0" prefWidth="1050.0" style="-fx-background-radius: 1em;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project7.controller.BorderController">
    <children>
-      <AnchorPane fx:id="border" prefHeight="31.0" prefWidth="1050.0" style="-fx-background-color: linear-gradient(to right,#eeeeee,#A53960);" AnchorPane.bottomAnchor="573.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="border" prefHeight="31.0" prefWidth="1050.0" style="-fx-background-color: linear-gradient(to right,#eeeeee,#A53960);" AnchorPane.bottomAnchor="573.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMousePressed="#handleMousePressed" onMouseDragged="#handleMouseDragged">
          <children>
             <ImageView fitHeight="31.0" fitWidth="131.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="2.0">
                <image>
@@ -26,23 +26,50 @@
                   <Font name="Cambria" size="21.0" />
                </font>
             </Label>
-            <Button layoutX="1011.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleClicksClose" prefHeight="20.0" prefWidth="20.0" stylesheets="@css/toRestore/style.css" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="2.0">
+            <Button layoutY="2.0"
+                    mnemonicParsing="false"
+                    onAction="#handleClicksClose"
+                    prefHeight="20.0"
+                    prefWidth="20.0"
+                    stylesheets="@css/toRestore/style.css"
+                    AnchorPane.rightAnchor="7.0"
+                    AnchorPane.topAnchor="2.0">
                <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="16.0" fitWidth="24.0"
+                             preserveRatio="true">
                      <image>
-                        <Image url="@images/close-window-64.png" />
+                        <Image url="@images/close-window-64.png"/>
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="947.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleClicksMinimize" prefHeight="20.0" prefWidth="20.0" stylesheets="@css/toRestore/style.css" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="2.0">
+            <Button layoutY="2.0"
+                    mnemonicParsing="false"
+                    onAction="#handleClicksMaximize"
+                    prefHeight="20.0"
+                    prefWidth="20.0"
+                    stylesheets="@css/toRestore/style.css"
+                    AnchorPane.rightAnchor="40.0"
+                    AnchorPane.topAnchor="2.0"
+                    text="□"
+                    style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+            <Button layoutY="2.0"
+                    mnemonicParsing="false"
+                    onAction="#handleClicksMinimize"
+                    prefHeight="20.0"
+                    prefWidth="20.0"
+                    stylesheets="@css/toRestore/style.css"
+                    AnchorPane.rightAnchor="73.0"
+                    AnchorPane.topAnchor="2.0">
                <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="16.0" fitWidth="24.0"
+                             preserveRatio="true">
                      <image>
-                        <Image url="@images/minimize-window.png" />
+                        <Image url="@images/minimize-window.png"/>
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="mainscreen" layoutY="31.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="573.0" prefWidth="1050.0" style="-fx-background-color: BBBBBB;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0" />

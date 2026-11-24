@@ -16,6 +16,7 @@ public class Exercice {
     private String titre;
     private String consigne;
     private double bareme;
+    private Difficulty difficulty;
     private int controleID;
     private List<Section> sections; // Les questions (sections) de cet exercice
 
@@ -26,6 +27,7 @@ public class Exercice {
         this.sections = new ArrayList<>();
         this.consigne = "";
         this.bareme = 0.0;
+        this.difficulty = Difficulty.medium;
     }
 
     public Exercice(int numero, String titre) {
@@ -93,6 +95,10 @@ public class Exercice {
     public void setControleID(int controleID) {
         this.controleID = controleID;
     }
+
+    public Difficulty getDifficulty() {return difficulty;}
+
+    public void setDifficulty(Difficulty difficulty) {this.difficulty = difficulty;}
 
     public List<Section> getSections() {
         return sections;

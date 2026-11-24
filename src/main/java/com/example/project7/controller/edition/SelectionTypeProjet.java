@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.ResourceBundle;
-
+import com.example.project7.NavigationUtils;
 public class SelectionTypeProjet implements Initializable {
 
     @FXML
@@ -77,10 +77,7 @@ public class SelectionTypeProjet implements Initializable {
                         controller.setProjet(projet);
                         controller.setParentPane(parentPane);
                     }
-                    if (parentPane != null) {
-                        parentPane.getChildren().removeAll();
-                        parentPane.getChildren().setAll(view);
-                    }
+                    NavigationUtils.afficherPage(parentPane, view);
                 } else {
                     locationLabel.setText("Error occurred while creating the project folder!");
                 }
@@ -132,8 +129,7 @@ public class SelectionTypeProjet implements Initializable {
     public void handleClicksCancel(ActionEvent event) {
         FxmlLoader object = new FxmlLoader();
         Parent view = object.getPane("Home");
-        parentPane.getChildren().removeAll();
-        parentPane.getChildren().setAll(view);
+        NavigationUtils.afficherPage(parentPane, view);
     }
 
     @Override

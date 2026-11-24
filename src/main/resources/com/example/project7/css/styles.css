@@ -11,3 +11,29 @@
 .valid {
     -fx-background-color: transparent; /* Arrière-plan transparent pour conserver l'apparence par défaut */
 }
+
+
+/* Style commun aux boutons Import et Add */
+.exam-action-button {
+    -fx-background-color: #873E59;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+/* Survol */
+.exam-action-button:hover {
+    -fx-background-color: #A53860;
+}
+
+/* Pendant le clic */
+.exam-action-button:pressed {
+    -fx-background-color: #6F2F49;
+}
+
+/* Bouton désactivé */
+.exam-action-button:disabled {
+    -fx-opacity: 0.5;
+    -fx-cursor: default;
+}
