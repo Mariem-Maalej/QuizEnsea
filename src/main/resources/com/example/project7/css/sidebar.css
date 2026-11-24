@@ -1,39 +1,71 @@
 
-/* Style normal */
+/*!* Style normal *!*/
+/*.sidebar-button {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-background-radius: 8;*/
+/*    -fx-cursor: hand;*/
+
+/*    -fx-pref-width: 120px;*/
+/*    -fx-pref-height: 44px;*/
+
+/*    -fx-font-family: "Century Gothic";*/
+/*    -fx-font-size: 22px;*/
+/*    -fx-font-weight: normal;*/
+/*}*/
+
+/*!* Survol *!*/
+/*.sidebar-button:hover {*/
+/*    -fx-background-color: rgba(165, 56, 96, 0.35);*/
+/*}*/
+
+/*!* Bouton sélectionné *!*/
+/*.sidebar-button.active {*/
+/*    -fx-background-color: #A53860;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-font-size: 22px;*/
+/*    -fx-font-weight: normal;*/
+/*}*/
+
+/*!* Bouton sélectionné et survolé *!*/
+/*.sidebar-button.active:hover {*/
+/*    -fx-background-color: #922E53;*/
+/*    -fx-font-size: 22px;*/
+/*}*/
+
+/*!* Bouton pressé *!*/
+/*.sidebar-button:pressed {*/
+/*    -fx-font-size: 22px;*/
+/*}*/
+
 .sidebar-button {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
     -fx-background-radius: 8;
-    -fx-cursor: hand;
 
-    -fx-pref-width: 120px;
-    -fx-pref-height: 44px;
-
+    -fx-text-fill: white;
     -fx-font-family: "Century Gothic";
-    -fx-font-size: 22px;
+    -fx-font-size: 20px;
     -fx-font-weight: normal;
+
+    -fx-alignment: center-left;
+    -fx-padding: 0 15 0 15;
+
+    -fx-cursor: hand;
 }
 
-/* Survol */
 .sidebar-button:hover {
     -fx-background-color: rgba(165, 56, 96, 0.35);
 }
 
-/* Bouton sélectionné */
 .sidebar-button.active {
     -fx-background-color: #A53860;
     -fx-text-fill: white;
-    -fx-font-size: 22px;
-    -fx-font-weight: normal;
 }
 
-/* Bouton sélectionné et survolé */
 .sidebar-button.active:hover {
     -fx-background-color: #922E53;
-    -fx-font-size: 22px;
 }
 
-/* Bouton pressé */
 .sidebar-button:pressed {
-    -fx-font-size: 22px;
+    -fx-background-color: #7E294B;
 }

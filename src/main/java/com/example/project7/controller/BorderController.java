@@ -61,12 +61,21 @@ public class BorderController implements Initializable {
         stage.setMaximized(!stage.isMaximized());
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FxmlLoader object = new FxmlLoader();
         AnchorPane view = object.getPane("Barre");
-        mainscreen.getChildren().removeAll();
+        if (view == null) {
+            System.err.println("Impossible de charger Barre.fxml");
+            return;
+        }
         mainscreen.getChildren().setAll(view);
+        AnchorPane.setTopAnchor(view, 0.0);
+        AnchorPane.setBottomAnchor(view, 0.0);
+        AnchorPane.setLeftAnchor(view, 0.0);
+        AnchorPane.setRightAnchor(view, 0.0);
     }
+
 
 }

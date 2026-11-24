@@ -1,228 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<AnchorPane fx:id="anchorpane1"
+            prefHeight="576.0"
+            prefWidth="1050.0"
+            stylesheets="@css/sidebar.css"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.project7.controller.InterfaceController">
 
-<AnchorPane fx:id="anchorpane1" stylesheets="@css/sidebar.css" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project7.controller.InterfaceController">
-    <children>
-        <AnchorPane fx:id="anchorpane2" prefHeight="576.0" prefWidth="256.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="794.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox alignment="CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: linear-gradient(to bottom,#eeeeee,#A53960);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <AnchorPane prefHeight="278.0" prefWidth="256.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="256.0">
-                           <children>
-                              <ImageView fitHeight="139.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/ensea.png" />
-                                 </image>
-                              </ImageView>
-                              <Label style="-fx-text-fill: #A53960;" text="AMC" textFill="WHITE">
-                                 <font>
-                                    <Font size="37.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <VBox alignment="CENTER" layoutY="-42.0" prefHeight="200.0" prefWidth="256.0">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/home.png" />
-                                       </image>
-                                    </ImageView>
+   <children>
 
-                                    <JFXButton fx:id="btnHome"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               onAction="#handleClicksAccueil"
-                                               text="Home"
-                                               textAlignment="JUSTIFY"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="39.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/plus.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnNew"
-                                               onAction="#handleClicksNew"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="New"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0"/>
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/open.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnOpen"
-                                               onAction="#handleClicksOpen"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="Open"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/Theme.png" />
-                                       </image>
-                                    </ImageView>
+      <!-- MENU LATERAL -->
+      <BorderPane fx:id="anchorpane2"
+                  prefWidth="256.0"
+                  minWidth="256.0"
+                  maxWidth="256.0"
+                  style="-fx-background-color: linear-gradient(to bottom, #eeeeee, #A53960);"
+                  AnchorPane.topAnchor="0.0"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0">
 
-                                    <JFXButton fx:id="btnGererThemes"
-                                               onAction="#handleClicksThemes"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="Theme"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
+         <!-- LOGO ENSEA ET TITRE AMC -->
+         <top>
+            <VBox alignment="CENTER"
+                  spacing="8.0"
+                  style="-fx-padding: 18 0 14 0;">
 
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/export.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnExtract"
-                                               onAction="#handleClicksExtract"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="Extract"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
+               <ImageView fitHeight="139.0"
+                          fitWidth="178.0"
+                          preserveRatio="true">
+                  <image>
+                     <Image url="@images/ensea.png"/>
+                  </image>
+               </ImageView>
 
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/import.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton onAction="#handleClicksImport" prefHeight="44.0" prefWidth="120.0" text="Import" textFill="WHITE">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/params.png" />
-                                       </image>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnSetting"
-                                               onAction="#handleClicksSetting"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="Setting"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@images/help.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets right="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <JFXButton fx:id="btnHelp"
-                                               onAction="#handleClicksHelp"
-                                               prefWidth="120.0"
-                                               prefHeight="44.0"
-                                               text="Help"
-                                               textFill="WHITE"
-                                               styleClass="sidebar-button">
-                                       <font>
-                                          <Font name="Century Gothic" size="22.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="94.0" prefWidth="256.0">
-                     <children>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="122.0" prefWidth="256.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="122.0" prefWidth="156.0" text="©2025&#10;Eya Mezzi&#10;" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-               </children></VBox>
-            </children>
-        </AnchorPane>
+               <Label text="AMC"
+                      textFill="#A53960"
+                      style="-fx-font-size: 37px;"/>
+            </VBox>
+         </top>
 
-       <AnchorPane fx:id="anchorpane3"
-                   layoutX="256.0"
-                   prefHeight="600.0"
-                   prefWidth="794.0"
-                   style="-fx-background-color: white;"
-                   AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="256.0"
-                   AnchorPane.rightAnchor="0.0" />
-    </children>
+         <!-- MENU DE NAVIGATION -->
+         <center>
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        style="-fx-background: transparent; -fx-background-color: transparent;">
+
+               <content>
+                  <VBox alignment="TOP_CENTER"
+                        spacing="4.0"
+                        style="-fx-padding: 8 12 8 12;">
+
+                     <!-- HOME -->
+                     <JFXButton fx:id="btnHome"
+                                text="Home"
+                                onAction="#handleClicksAccueil"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/home.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- NEW -->
+                     <JFXButton fx:id="btnNew"
+                                text="New"
+                                onAction="#handleClicksNew"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/plus.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- OPEN -->
+                     <JFXButton fx:id="btnOpen"
+                                text="Open"
+                                onAction="#handleClicksOpen"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/open.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- THEME -->
+                     <JFXButton fx:id="btnGererThemes"
+                                text="Theme"
+                                onAction="#handleClicksThemes"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/Theme.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- EXTRACT -->
+                     <JFXButton fx:id="btnExtract"
+                                text="Extract"
+                                onAction="#handleClicksExtract"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/export.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- IMPORT -->
+                     <JFXButton fx:id="btnImport"
+                                text="Import"
+                                onAction="#handleClicksImport"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/import.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- SETTING -->
+                     <JFXButton fx:id="btnSetting"
+                                text="Setting"
+                                onAction="#handleClicksSetting"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/params.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                     <!-- HELP -->
+                     <JFXButton fx:id="btnHelp"
+                                text="Help"
+                                onAction="#handleClicksHelp"
+                                styleClass="sidebar-button"
+                                prefWidth="224.0"
+                                prefHeight="48.0"
+                                alignment="CENTER_LEFT"
+                                graphicTextGap="16.0">
+                        <graphic>
+                           <ImageView fitWidth="32.0"
+                                      fitHeight="32.0"
+                                      preserveRatio="true">
+                              <image>
+                                 <Image url="@images/help.png"/>
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </JFXButton>
+
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </center>
+
+         <!-- PIED DE PAGE -->
+         <bottom>
+            <VBox alignment="CENTER"
+                  style="-fx-padding: 10;">
+
+               <Label text="©2025&#10;Eya Mezzi"
+                      textAlignment="CENTER"
+                      textFill="WHITE"/>
+
+            </VBox>
+         </bottom>
+
+      </BorderPane>
+
+      <!-- CONTENU PRINCIPAL -->
+      <AnchorPane fx:id="anchorpane3"
+                  prefHeight="600.0"
+                  prefWidth="794.0"
+                  style="-fx-background-color: white;"
+                  AnchorPane.topAnchor="0.0"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="256.0"
+                  AnchorPane.rightAnchor="0.0"/>
+
+   </children>
 </AnchorPane>

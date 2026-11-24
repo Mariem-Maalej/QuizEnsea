@@ -95,27 +95,17 @@ public class InterfaceController implements Initializable {
 
     @FXML
     void handleClicksNew(ActionEvent event) {
-
         FxmlLoader loader = new FxmlLoader();
-
-        Parent view = loader.getPane(
-                "editer_quiz/_1_SelectionTypeDeProjet"
-        );
-
+        Parent view = loader.getPane("editer_quiz/_1_SelectionTypeDeProjet");
         if (view == null) {
-            System.err.println(
-                    "Impossible de charger SelectionTypeDeProjet.fxml"
-            );
+            System.err.println("Impossible de charger SelectionTypeDeProjet.fxml");
             return;
         }
-
         SelectionTypeProjet controller =
                 (SelectionTypeProjet) loader.getController();
-
         if (controller != null) {
             controller.setParentPane(anchorpane3);
         }
-
         NavigationUtils.afficherPage(anchorpane3, view);
         setActiveButton(btnNew);
     }
@@ -123,38 +113,32 @@ public class InterfaceController implements Initializable {
     private void handleClicksImport(ActionEvent event) {
         FxmlLoader loader = new FxmlLoader();
         Parent view = loader.getPane("importation/ImportExamView");
+        if (view == null) {
+            System.err.println("Impossible de charger ImportExamView.fxml");
+            return;
+        }
         ImportExamController controller = (ImportExamController) loader.getController();
         if (controller != null) {
             controller.setParentPane(anchorpane3);
         }
-        anchorpane3.getChildren().setAll(view);
-        AnchorPane.setTopAnchor(view, 0.0);
-        AnchorPane.setBottomAnchor(view, 0.0);
-        AnchorPane.setLeftAnchor(view, 0.0);
-        AnchorPane.setRightAnchor(view, 0.0);
+        NavigationUtils.afficherPage(anchorpane3, view);
+        setActiveButton(btnImport);
     }
 
     @FXML
     void handleClicksOpen(ActionEvent event) {
-
         FxmlLoader loader = new FxmlLoader();
-
         Parent view = loader.getPane("openinterf");
-
         if (view == null) {
-            System.err.println(
-                    "Impossible de charger openinterf.fxml"
-            );
+            System.err.println("Impossible de charger openinterf.fxml");
             return;
         }
-
         OpenProjet controller =
                 (OpenProjet) loader.getController();
 
         if (controller != null) {
             controller.setParentPane(anchorpane3);
         }
-
         NavigationUtils.afficherPage(anchorpane3, view);
         // Mettre en évidence Open
         setActiveButton(btnOpen);
@@ -241,7 +225,7 @@ public class InterfaceController implements Initializable {
     @FXML private JFXButton btnExtract;
     @FXML private JFXButton btnSetting;
     @FXML private JFXButton btnHelp;
-
+    @FXML private JFXButton btnImport;
     private void setActiveButton(JFXButton activeButton) {
 
         JFXButton[] buttons = {
@@ -249,6 +233,7 @@ public class InterfaceController implements Initializable {
                 btnNew,
                 btnOpen,
                 btnGererThemes,
+                btnImport,
                 btnExtract,
                 btnSetting,
                 btnHelp
