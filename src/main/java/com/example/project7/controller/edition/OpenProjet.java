@@ -23,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
-
+import com.example.project7.NavigationUtils;
 public class OpenProjet implements Initializable {
 
     @FXML
@@ -53,27 +53,38 @@ public class OpenProjet implements Initializable {
 
     @FXML
     public void openProject(ActionEvent event) {
-        //get the selected projet from the tableview
-        Projet currentProjet = projectTable.getSelectionModel().getSelectedItem();
+        // Récupérer le projet sélectionné
+        Projet currentProjet =
+                projectTable.getSelectionModel().getSelectedItem();
         if (currentProjet != null) {
             FxmlLoader object = new FxmlLoader();
-            Parent view = object.getPane("editer_quiz/_2_EditerProjet");
-            EditerProjet controller = (EditerProjet) object.getController();
+            Parent view = object.getPane(
+                    "editer_quiz/_2_EditerProjet"
+            );
+            if (view == null) {
+                System.err.println(
+                        "Impossible de charger _2_EditerProjet.fxml"
+                );
+                return;
+            }
+            EditerProjet controller =
+                    (EditerProjet) object.getController();
             if (controller != null) {
                 controller.setProjet(currentProjet);
                 controller.setParentPane(parentPane);
             }
-            if (parentPane != null) {
-                parentPane.getChildren().removeAll();
-                parentPane.getChildren().setAll(view);
-            }
-        }else{
+            // Affichage responsive
+            NavigationUtils.afficherPage(parentPane, view);
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("You need to select a project first");
-            alert.setHeaderText("You need to select a project first to open ");
+            alert.setHeaderText(
+                    "You need to select a project first to open"
+            );
             alert.showAndWait();
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -103,13 +114,12 @@ public class OpenProjet implements Initializable {
     }
 
     public void fetchAndUpdateTableView() {
+        long start = System.currentTimeMillis();
         String query = "SELECT * FROM Projet order by creationDate desc";
-
         ObservableList<Projet> sectionData = FXCollections.observableArrayList();
-
         try (Connection connection = SqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-
+            long startQuery = System.nanoTime();
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     int idProject = resultSet.getInt("idProjet");
@@ -122,12 +132,22 @@ public class OpenProjet implements Initializable {
                     sectionData.add(new Projet(idProject, nomProjet, localisationProjet, typeProjet,dateProjet));
                 }
             }
+            System.out.printf(
+                    "Temps SQL + lecture des résultats : %.2f ms%n",
+                    (System.nanoTime() - startQuery) / 1_000_000.0
+            );
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("Error loading section data: " + e.getMessage());
         }
 
         projectTable.setItems(sectionData);
+        long end = System.currentTimeMillis();
+
+        System.out.println("========== PERFORMANCE ==========");
+        System.out.println("Nombre de projets : " + sectionData.size());
+        System.out.println("Temps de chargement : " + (end - start) + " ms");
+        System.out.println("=================================");
     }
 
     private void handleDelete(int index){

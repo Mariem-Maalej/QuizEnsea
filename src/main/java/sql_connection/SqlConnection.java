@@ -31,8 +31,22 @@ public class SqlConnection {
             System.out.println("Error: unable to load H2 driver!");
             throw new SQLException("H2 JDBC driver not found", ex); // Throw exception if driver is not found
         }
+        // Début de la mesure
+        long start = System.nanoTime();
 
-        // No need to create a database manually – H2 does this automatically.
-        return DriverManager.getConnection(JDBC_URL, ROOT_USERNAME, ROOT_PASSWORD);
+        Connection connection = DriverManager.getConnection(
+                JDBC_URL,
+                ROOT_USERNAME,
+                ROOT_PASSWORD
+        );
+        // Fin de la mesure
+        long end = System.nanoTime();
+
+        System.out.printf(
+                "Temps de connexion H2 : %.2f ms%n",
+                (end - start) / 1_000_000.0
+        );
+
+        return connection;
     }
 }

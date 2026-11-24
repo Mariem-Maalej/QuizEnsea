@@ -122,6 +122,40 @@ public class DataBase {
         } else {
             System.out.println("✓ Column themeParDefautID already exists.");
         }
+        // Vérifier si la colonne difficulty existe dans la table Exercice
+        boolean difficultyExists = false;
+
+        try {
+            ResultSet rs = statement.executeQuery(
+                    "SELECT difficulty FROM Exercice WHERE 1=0"
+            );
+            difficultyExists = true;
+            rs.close();
+        } catch (Exception e) {
+            difficultyExists = false;
+        }
+
+        if (!difficultyExists) {
+            System.out.println("Adding missing column difficulty to Exercice table...");
+
+            try {
+                statement.executeUpdate(
+                        "ALTER TABLE Exercice " +
+                                "ADD COLUMN difficulty VARCHAR(20) DEFAULT 'medium'"
+                );
+
+                System.out.println("✓ Column difficulty added successfully!");
+
+            } catch (Exception e) {
+                System.err.println(
+                        "Error adding difficulty column: " + e.getMessage()
+                );
+                throw e;
+            }
+
+        } else {
+            System.out.println("✓ Column difficulty already exists.");
+        }
 
         System.out.println("Database migration completed successfully!");
     }
@@ -168,6 +202,7 @@ public class DataBase {
                 "titre VARCHAR(255) NOT NULL, " +
                 "consigne TEXT, " +
                 "bareme DECIMAL(5,2) DEFAULT 0.00, " +
+                "difficulty VARCHAR(20) DEFAULT 'medium', " +
                 "controleID INT NOT NULL, " +
                 "FOREIGN KEY (controleID) REFERENCES Controle(idControle) ON DELETE CASCADE);";
         statement.executeUpdate(createExerciceQuery);
